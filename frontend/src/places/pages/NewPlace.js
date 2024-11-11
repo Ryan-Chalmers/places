@@ -69,6 +69,7 @@ const NewPlace = () => {
       <Input
         id="title"
         label="Title"
+        type="text"
         element="input"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
@@ -85,6 +86,7 @@ const NewPlace = () => {
       <Input
         id="address"
         label="Address"
+        type="text"
         element="input"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid address."
