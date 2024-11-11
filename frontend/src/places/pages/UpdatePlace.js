@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+import './PlaceForm.css'
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import {
@@ -38,7 +39,9 @@ const DUMMY_PLACES = [
 ];
 
 const UpdatePlace = () => {
-  const placeId = useParams.placeId;
+  const placeId = useParams().placeId;
+
+  console.log(placeId)
 
   const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
 
@@ -51,7 +54,7 @@ const UpdatePlace = () => {
   }
 
   return (
-    <form>
+    <form className="place-form">
       <Input
         id="title"
         element="input"
