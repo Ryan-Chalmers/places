@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 import { AuthContext } from "../../context/auth-context";
 import "./NavLinks.css";
-import Button from "../FormElements/Button";
 
 const NavLinks = (props) => {
   const auth = useContext(AuthContext);
