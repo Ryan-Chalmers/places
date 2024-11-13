@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 const HttpError = require("../models/http-error");
 
 const DUMMY_PLACES = [
@@ -5,8 +7,6 @@ const DUMMY_PLACES = [
     id: "p1",
     title: "Empire State Building",
     description: "One of the most famous skyscrapers in the world",
-    imageURL:
-      "https://fastly.picsum.photos/id/870/200/300.jpg?blur=2&grayscale&hmac=ujRymp644uYVjdKJM7kyLDSsrqNSMVRPnGU99cKl6Vs",
     address: "20 W 34th St., New York, NY 10001, United States",
     location: {
       lat: 40.7484405,
@@ -28,7 +28,7 @@ const getPlaceById = (req, res, next) => {
   }
 
   res.json({ place });
-}
+};
 
 const getPlacesByUserId = (req, res, next) => {
   const userId = req.params.uid;
@@ -42,7 +42,25 @@ const getPlacesByUserId = (req, res, next) => {
   }
 
   res.json({ userPlaces });
-}
+};
+
+const createPlace = (req, res, next) => {
+  const { title, description, coordinates, address, creator } = req.body;
+
+  const createdPlace = {
+    id: uuidv4(),
+    title,
+    description,
+    location: coordinates,
+    address,
+    creator,
+  };
+
+  DUMMY_PLACES.push(createdPlace);
+
+  res.status(201).json({ place: createdPlace });
+};
 
 exports.getPlaceById = getPlaceById;
 exports.getPlacesByUserId = getPlacesByUserId;
+exports.createPlace = createPlace;
