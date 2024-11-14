@@ -3,6 +3,7 @@
 # dependencies
 /.pnp
 .pnp.js
+.env
 
 # testing
 frontend/coverage

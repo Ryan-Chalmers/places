@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const placesRoutes = require("./routes/places-routes");
 const usersRoutes = require("./routes/users-routes");
@@ -11,12 +12,12 @@ app.use(bodyParser.json());
 
 app.use("/api/places", placesRoutes);
 
-app.use("/api/users", usersRoutes)
+app.use("/api/users", usersRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route", 404);
   throw error;
-})
+});
 
 app.use((error, req, res, next) => {
   if (res.headerSent) {
@@ -26,4 +27,15 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occured!" });
 });
 
-app.listen(8080);
+console.log(process.env.ATLAS_USERNAME)
+
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.tqugl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+  )
+  .then(() => {
+    app.listen(8080);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
