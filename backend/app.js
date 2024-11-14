@@ -27,8 +27,6 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occured!" });
 });
 
-console.log(process.env.ATLAS_USERNAME)
-
 mongoose
   .connect(
     `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.tqugl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`

@@ -5,6 +5,8 @@ const placesController = require("../controllers/places-controller.js");
 
 const router = express.Router();
 
+router.get("/user/:uid", placesController.getPlacesByUserId);
+
 router.get("/:pid", placesController.getPlaceById);
 
 router.delete("/:pid", placesController.deletePlace);
@@ -13,8 +15,6 @@ router.patch("/:pid", [
   check("title").not().isEmpty(),
   check("description").isLength({min: 5}),
 ],placesController.updatePlace);
-
-router.get("/user/:uid", placesController.getPlacesByUserId);
 
 router.post(
   "/",
