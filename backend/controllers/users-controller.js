@@ -13,11 +13,21 @@ const DUMMY_USERS = [
   },
 ];
 
-const getUsers = (req, res, next) => {
-  res.json({ users: DUMMY_USERS });
+const getUsers = async (req, res, next) => {
+  let users;
+
+  try {
+    users = await User.find({}, "-password");
+  } catch (error) {
+    return next(
+      new HttpError("Fetching users failed, please try again later", 500)
+    );
+  }
+
+  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new HttpError("Invalid inputs passed, please check your data", 422);
@@ -25,9 +35,13 @@ const login = (req, res, next) => {
 
   const { email, password } = req.body;
 
-  const user = DUMMY_USERS.find(
-    (u) => email === u.email && password === u.password
-  );
+  let user;
+
+  try {
+    user = await User.findOne({ email, password });
+  } catch (error) {
+    return next(new HttpError("Log in failed, please try again later", 500));
+  }
 
   if (!user) {
     return next(
@@ -68,7 +82,8 @@ const signup = async (req, res, next) => {
     name,
     email,
     password,
-    image: "https://commons.wikimedia.org/wiki/File:Jard%C3%ADn_del_Pr%C3%ADncipe,_Mahan,_Ir%C3%A1n,_2016-09-22,_DD_21.jpg",
+    image:
+      "https://commons.wikimedia.org/wiki/File:Jard%C3%ADn_del_Pr%C3%ADncipe,_Mahan,_Ir%C3%A1n,_2016-09-22,_DD_21.jpg",
     places,
   });
 
