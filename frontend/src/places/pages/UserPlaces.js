@@ -24,16 +24,24 @@ const UserPlaces = () => {
     };
     fetchPlaces();
   }, [sendRequest, userId]);
+
+  const placeDeletedHandler = (deletedPlaceId) => {
+    setLoadedPlaces((prevPlaces) =>
+      prevPlaces.filter((place) => place.id !== deletedPlaceId)
+    );
+  };
   return (
     <>
-    <ErrorModal error={error} onClear={clearError}/>
-    {isLoading && (
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && (
         <div className="center">
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && loadedPlaces && <PlaceList items={loadedPlaces} />}
-    {isLoading }
+      {!isLoading && loadedPlaces && (
+        <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />
+      )}
+      {isLoading}
     </>
   );
 };
