@@ -6,20 +6,21 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Users = () => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
-  const {isLoading, error, sendRequest, clearError} = useHttpClient();
 
   useEffect(() => {
-    const request = async () => {
+    const fetchUsers = async () => {
       try {
-        const responseData = await sendRequest("http://localhost:8080/api/users");
+        const responseData = await sendRequest(
+          "http://localhost:8080/api/users"
+        );
 
         setLoadedUsers(responseData.users);
-      } catch (err) {
-      }
+      } catch (err) {}
     };
-    request();
-  }, []);
+    fetchUsers();
+  }, [sendRequest]);
 
   return (
     <React.Fragment>

@@ -9,7 +9,7 @@ export const useHttpClient = () => {
   const sendRequest = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
       setIsLoading(true);
-      const httpAbortCtrl = new AbortController();
+      // const httpAbortCtrl = new AbortController();
       // activeHttpRequests.current.push(httpAbortCtrl);
 
       try {
@@ -17,7 +17,7 @@ export const useHttpClient = () => {
           method,
           body,
           headers,
-          signal: httpAbortCtrl.signal,
+          // signal: httpAbortCtrl.signal,
         });
 
         const responseData = await response.json();
@@ -47,8 +47,6 @@ export const useHttpClient = () => {
 
   // useEffect(() => {
   //   return () => {
-
-  //     console.log('calling cleanup' + activeHttpRequests.current.length)
   //     // eslint-disable-next-line react-hooks/exhaustive-deps
   //     activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
   //   };
