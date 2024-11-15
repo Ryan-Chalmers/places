@@ -42,7 +42,7 @@ const login = async (req, res, next) => {
     );
   }
 
-  res.status(200).json({ message: "Logged in!" });
+  res.status(200).json({ message: "Logged in!", user: user.toObject({getters: true}) });
 };
 
 const signup = async (req, res, next) => {
