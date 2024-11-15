@@ -77,7 +77,7 @@ const createPlace = async (req, res, next) => {
     address,
     location: coordinates,
     image:
-      "https://commons.wikimedia.org/wiki/File:003_Olive-bellied_Sunbird_in_flight_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/f/f7/003_Olive-bellied_Sunbird_in_flight_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg",
     creator,
   });
 
