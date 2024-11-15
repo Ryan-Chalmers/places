@@ -1,14 +1,28 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const placesRoutes = require("./routes/places-routes");
 const usersRoutes = require("./routes/users-routes");
 const HttpError = require("./models/http-error");
 
+const corsOptions = {
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: [
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "Authorization",
+  ],
+};
+
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(cors(corsOptions));
 
 app.use("/api/places", placesRoutes);
 
@@ -29,7 +43,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.tqugl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.tqugl.mongodb.net/mern?retryWrites=true&w=majority&appName=Cluster0`
   )
   .then(() => {
     app.listen(8080);

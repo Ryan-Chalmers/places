@@ -13,7 +13,7 @@ import Button from "../../shared/components/FormElements/Button";
 import { AuthContext } from "../../shared/context/auth-context";
 
 const Auth = () => {
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formState, inputHandler, setFormData] = useForm({
     email: {
@@ -26,10 +26,32 @@ const Auth = () => {
     },
   });
 
-  const authSubmitHandler = (event) => {
+  const authSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
-    auth.login()
+
+    if (!isLoginMode) {
+      try {
+        const response = await fetch("http://localhost:8080/api/users/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+    }
+
+    auth.login();
   };
 
   const switchModeHandler = () => {
