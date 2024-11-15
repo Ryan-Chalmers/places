@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
@@ -33,7 +32,7 @@ const getPlacesByUserId = async (req, res, next) => {
   let userWithPlaces;
 
   try {
-    userWithPlaces = await User.findById(userId).populate('places');
+    userWithPlaces = await User.findById(userId).populate("places");
   } catch (error) {
     console.log(error);
     return next(
@@ -48,7 +47,9 @@ const getPlacesByUserId = async (req, res, next) => {
   }
 
   res.json({
-    places: userWithPlaces.places.map((place) => place.toObject({ getters: true })),
+    places: userWithPlaces.places.map((place) =>
+      place.toObject({ getters: true })
+    ),
   });
 };
 

@@ -11,10 +11,11 @@ router.get("/:pid", placesController.getPlaceById);
 
 router.delete("/:pid", placesController.deletePlace);
 
-router.patch("/:pid", [
-  check("title").not().isEmpty(),
-  check("description").isLength({min: 5}),
-],placesController.updatePlace);
+router.patch(
+  "/:pid",
+  [check("title").not().isEmpty(), check("description").isLength({ min: 5 })],
+  placesController.updatePlace
+);
 
 router.post(
   "/",
