@@ -63,7 +63,7 @@ const signup = async (req, res, next) => {
     );
   }
 
-  const { email, password, name, image, places } = req.body;
+  const { email, password, name } = req.body;
   let existingUser;
 
   try {
@@ -84,7 +84,7 @@ const signup = async (req, res, next) => {
     password,
     image:
       "https://commons.wikimedia.org/wiki/File:Jard%C3%ADn_del_Pr%C3%ADncipe,_Mahan,_Ir%C3%A1n,_2016-09-22,_DD_21.jpg",
-    places,
+    places: [],
   });
 
   try {
