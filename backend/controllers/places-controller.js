@@ -63,7 +63,8 @@ const createPlace = async (req, res, next) => {
     );
   }
 
-  const { title, description, address, creator } = req.body;
+  const { title, description, address } = req.body;
+  const creator = req.userData.userId;
 
   let coordinates;
 
