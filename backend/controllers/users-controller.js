@@ -47,7 +47,7 @@ const login = async (req, res, next) => {
   let isValidPassword = false;
 
   try {
-    isValidPassword = await bcrypt.compare(password, existingUser.password);
+    isValidPassword = await bcrypt.compare(password, user.password);
   } catch (err) {
     const error = new HttpError(
       "Could not log you in, please check your credentials",
@@ -124,8 +124,6 @@ const signup = async (req, res, next) => {
   }
 
   let token;
-
-  console.log(process.env.WEB_TOKEN_KEY)
 
   try {
     token = jwt.sign(

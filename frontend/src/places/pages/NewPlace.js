@@ -52,11 +52,9 @@ const NewPlace = () => {
     formData.append("image", formState.inputs.image.value);
 
     try {
-      sendRequest(
-        "http://localhost:8080/api/places",
-        "POST",
-        formData
-      );
+      sendRequest("http://localhost:8080/api/places", "POST", formData, {
+        Authorization: "Bear " + auth.token,
+      });
       history.push("/");
     } catch (err) {}
   };
