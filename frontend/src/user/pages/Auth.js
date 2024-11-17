@@ -83,7 +83,9 @@ const Auth = () => {
           }
         );
         auth.login(responseData.user.id);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err)
+      }
     } else {
       try {
         const formData = new FormData();
@@ -98,7 +100,9 @@ const Auth = () => {
         );
 
         auth.login(responseData.user.id);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err)
+      }
     }
   };
 
