@@ -72,8 +72,7 @@ const signup = async (req, res, next) => {
     name,
     email,
     password,
-    image:
-      "https://commons.wikimedia.org/wiki/File:Jard%C3%ADn_del_Pr%C3%ADncipe,_Mahan,_Ir%C3%A1n,_2016-09-22,_DD_21.jpg",
+    image: req.file.path,
     places: [],
   });
 
