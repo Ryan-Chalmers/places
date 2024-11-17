@@ -39,7 +39,7 @@ const login = async (req, res, next) => {
     return next(
       new HttpError(
         "Could not find user matching the email and password provided",
-        401
+        403
       )
     );
   }
@@ -57,7 +57,7 @@ const login = async (req, res, next) => {
   }
 
   if (!isValidPassword) {
-    const error = new HttpError("Invalid credentials.", 401);
+    const error = new HttpError("Invalid credentials.", 403);
     return next(error);
   }
 

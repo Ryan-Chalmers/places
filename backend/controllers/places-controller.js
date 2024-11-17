@@ -124,6 +124,10 @@ const deletePlace = async (req, res, next) => {
     return next(new HttpError("Could not find place for this id.", 404));
   }
 
+  if (place.creator.id !== req.userData.userId) {
+    return next(new HttpError("You are not allowed to delete this place.", 401));
+  }
+
   const imagePath = place.image;
 
   try {
@@ -157,7 +161,19 @@ const updatePlace = async (req, res, next) => {
   let place;
 
   try {
-    place = await Place.findByIdAndUpdate(placeId, { title, description });
+    place = await Place.findById(placeId);
+  } catch (error) {
+    return next(new HttpError("Updating place failed, please try again.", 500));
+  }
+
+  if (place.creator.toString() !== req.userData.userId) {
+    return next(new HttpError("You are not allowed to edit this place.", 401));
+  }
+
+  try {
+    place.title = title;
+    place.description = description;
+    await place.save();
   } catch (error) {
     return next(new HttpError("Updating place failed, please try again.", 500));
   }
